@@ -2,9 +2,12 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+
 // axios.get('https://api.github.com/users/H4rliquinn')
 //   .then((res)=>{
-//     console.log(res);
+//     console.log(res.data);
+//     const deck=document.querySelector('.cards');
+//     deck.appendChild(cardMaker(res.data));
 //   })
 //   .catch((err) => {
 //     console.log(err)
@@ -21,6 +24,8 @@
            create a new component and add it to the DOM as a child of .cards
 */
 
+
+
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -31,8 +36,20 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-// https://api.github.com/users/H4rliquinn/followers
+const followersArray = ['stlachman','jonathongre','DerekEtman','DanielWallen87','lucasbaze'];
+
+followersArray.forEach(item=>{
+  axios.get('https://api.github.com/users/'+item)
+    .then((res)=>{
+      console.log(res.data);
+      const deck=document.querySelector('.cards');
+      deck.appendChild(cardMaker(res.data));
+    })
+    .catch((err) => {
+      console.log(err)
+    }); 
+});
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -54,18 +71,57 @@ const followersArray = [];
 
 */
 
-function(follower){
+function cardMaker(follower){
   const newCard=document.createElement('div');
   newCard.classList.add('card');
 
   const newPic=document.createElement('img');
-  newPic.src=follower.src;
+  newCard.appendChild(newPic);
+  newPic.src=follower.avatar_url;
 
   const newCInfo=document.createElement('div');
   newCInfo.classList.add('card-info');
+  newCard.appendChild(newCInfo);
+
+  const newName=document.createElement('h3');
+  newCInfo.classList.add('name');
+  newCInfo.appendChild(newName);
+  newName.textContent=follower.name;
+
+  const newUserName=document.createElement('p');
+  newUserName.classList.add('username');
+  newCInfo.appendChild(newUserName);
+  newUserName.textContent=follower.login;
+
+  const newLocation=document.createElement('p');
+  newCInfo.appendChild(newLocation);
+  newLocation.textContent='Location: '+follower.location;
+
+  const newProfile=document.createElement('p');
+  newCInfo.appendChild(newProfile);
+  newProfile.textContent=`Profile: `;
+
+  const newLink=document.createElement('a');
+  newProfile.appendChild(newLink);
+  newLink.href=follower.html_url;
+  newLink.textContent=follower.html_url;
+
+  const newFollowers=document.createElement('p');
+  newCInfo.appendChild(newFollowers);
+  newFollowers.textContent='Followers: '+follower.followers;
+
+  const newFollowing=document.createElement('p');
+  newCInfo.appendChild(newFollowing);
+  newFollowing.textContent='Following: '+follower.following;
+
+  const newBio=document.createElement('p');
+  newCInfo.appendChild(newBio);
+  newBio.textContent='Bio: '+follower.bio;
+
+  return newCard;
 }
-  // const new=document.createElement('div');
-}
+  
+
 
 
 /* List of LS Instructors Github username's: 
