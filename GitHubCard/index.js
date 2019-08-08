@@ -2,7 +2,14 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-
+// axios.get('https://api.github.com/users/H4rliquinn')
+//   .then((res)=>{
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log(err)
+//   });  
+  
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -25,6 +32,7 @@
 */
 
 const followersArray = [];
+// https://api.github.com/users/H4rliquinn/followers
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -45,6 +53,20 @@ const followersArray = [];
 </div>
 
 */
+
+function(follower){
+  const newCard=document.createElement('div');
+  newCard.classList.add('card');
+
+  const newPic=document.createElement('img');
+  newPic.src=follower.src;
+
+  const newCInfo=document.createElement('div');
+  newCInfo.classList.add('card-info');
+}
+  // const new=document.createElement('div');
+}
+
 
 /* List of LS Instructors Github username's: 
   tetondan
