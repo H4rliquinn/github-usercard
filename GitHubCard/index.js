@@ -1,3 +1,29 @@
+// const newFA=[
+//   {"login": "stlachman"},
+//   {"login": "jonathongre"},
+//   {"login": "DerekEtman"},
+//   {"login": "DanielWallen87"},
+//   {"login": "lucasbaze"},
+//   {"login": "pusheadmetal"},
+//   {"login": "Chrismis79"},
+//   {"login": "chrisbonifacio"},
+//   {"login": "NicholasInterest1"},
+//   {"login": "MSquared88"},
+//   {"login": "JaxAtwood"},
+//   {"login": "nomadkitty"},
+//   {"login": "allisonkydy"},
+//   {"login": "adriangarcia5"},
+//   {  "login": "AceMouty"
+//   },{"login": "mchrupcala"},
+//   {  "login": "jaredkain"
+//   },{"login": "otterspawdesign"},
+//   {  "login": "EpiceneDev"
+//   },{"login": "juarezfrench"},
+//   {"login": "TaranMNeeld"},
+//   {"login": "shweps13"},
+//   {"login": "SGonzalez44"}
+// ];
+
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
@@ -35,20 +61,54 @@
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
+// https://api.github.com/users/H4rliquinn/followers
 
 const followersArray = ['stlachman','jonathongre','DerekEtman','DanielWallen87','lucasbaze'];
 
-followersArray.forEach(item=>{
-  axios.get('https://api.github.com/users/'+item)
-    .then((res)=>{
-      console.log(res.data);
-      const deck=document.querySelector('.cards');
-      deck.appendChild(cardMaker(res.data));
-    })
-    .catch((err) => {
-      console.log(err)
-    }); 
-});
+
+
+// followersArray.forEach(item=>{
+  // axios.get('https://api.github.com/users/'+item)
+  //   .then((res)=>{
+  //     console.log(res.data);
+  //     const deck=document.querySelector('.cards');
+  //     deck.appendChild(cardMaker(res.data));
+  //   })
+  //   .catch((err) => {
+  //     console.log(err)
+  //   }); 
+// });
+let newFA = [];
+//Followerlist from API
+  axios.get('https://api.github.com/users/H4rliquinn/followers')
+  .then((res)=>{
+     newFA = res.data;
+     console.log(newFA);
+     return newFA;
+  })
+  .then((res)=>{
+   for (let x=0; x<5 ;x++){
+
+      axios.get('https://api.github.com/users/'+newFA[x].login)
+      .then((res)=>{
+        // console.log(res.data);
+        const deck=document.querySelector('.cards');
+        deck.appendChild(cardMaker(res.data));
+      })
+      .catch((err) => {
+        console.log(err)
+      }); 
+
+   };
+ })
+  .catch((err) => {
+    console.log(err)
+  });
+ 
+
+ 
+
+
 
 
 /* Step 3: Create a function that accepts a single object as its only argument,
@@ -121,7 +181,6 @@ function cardMaker(follower){
   return newCard;
 }
   
-
 
 
 /* List of LS Instructors Github username's: 
